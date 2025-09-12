@@ -1,0 +1,9 @@
+services:
+  memos-mcp:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 0.0.0.0:8000:8000
+    environment:
+      - MEMOS_MCP_AUTH_TOKEN=abcdefghijklmnopqrstuvwxyz
