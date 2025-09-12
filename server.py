@@ -61,11 +61,12 @@ def title_to_filename(title: str) -> str:
 
 def has_markdown_title(content: str) -> bool:
     """Check if content has a markdown title (first non-empty line starts with #)"""
-    lines = content.strip().split('\n')
-    for line in lines:
-        if line.strip():
-            return line.strip().startswith('#')
-    return False
+    content = content.strip()
+    if not content:
+        return False
+    
+    first_line = content.split('\n')[0]
+    return first_line.startswith('# ')
 
 def add_title_to_content(title: str, content: str) -> str:
     """Add title as markdown header if content doesn't have one"""
