@@ -84,7 +84,7 @@ def create_new_article(
     try:
         # 1. Convert title to filename
         filename = title_to_filename(title)
-        filepath = f"pages/tutorial/{filename}.md"
+        filepath = f"pages/aigc/{filename}.md"
         
         # 2. Check and add title to content if needed
         final_content = add_title_to_content(title, content)
@@ -92,11 +92,11 @@ def create_new_article(
         # Add AI creation timestamp at the end
         from datetime import datetime
         current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        ai_footer = f"\n\n---\n> 本文由 AI 创建于 {current_time} ，仅供参考。"
+        ai_footer = f"\n\n---\n> This article was created by AI at {current_time} and is for reference only."
         final_content += ai_footer
         
         # 3. Read and update _meta.json
-        meta_filepath = "pages/tutorial/_meta.json"
+        meta_filepath = "pages/aigc/_meta.json"
         meta_content = git_repo.read_file(meta_filepath)
         
         if meta_content is None:
