@@ -133,4 +133,4 @@ def create_new_article(
 
 
 if __name__ == "__main__":
-    mcp.run(transport="http", host="0.0.0.0", port=8000)
+    mcp.run(transport=os.getenv("BLOG_MCP_TRANSPORT", "http"), host="0.0.0.0", port=8000)
