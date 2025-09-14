@@ -1,9 +1,8 @@
 import os
 import re
 import json
-from typing import Annotated, Optional, List, Dict, Any
+from typing import Annotated, Optional
 from fastmcp import FastMCP
-from fastmcp.server import Context
 from fastmcp.server.auth import StaticTokenVerifier
 from git import GitRepository
 from pypinyin import lazy_pinyin, Style
@@ -79,12 +78,17 @@ def add_title_to_content(title: str, content: str) -> str:
 def create_new_article(
     title: Annotated[str, "Title of the new article"],
     content: Annotated[str, "Content of the new article"],
+    category: Annotated[Optional[str], "Category of the new article, should be one of the following: web3, note, default is note"] = "note",
 ) -> str:
     """Create a new article"""
+    
+    if category not in ["web3", "note"]:
+        return "Error: Category should be one of the following: web3, note"
+    
     try:
         # 1. Convert title to filename
         filename = title_to_filename(title)
-        filepath = f"pages/aigc/{filename}.md"
+        filepath = f"pages/{category}/{filename}.md"
         
         # 2. Check and add title to content if needed
         final_content = add_title_to_content(title, content)
@@ -96,7 +100,7 @@ def create_new_article(
         final_content += ai_footer
         
         # 3. Read and update _meta.json
-        meta_filepath = "pages/aigc/_meta.json"
+        meta_filepath = f"pages/{category}/_meta.json"
         meta_content = git_repo.read_file(meta_filepath)
         
         if meta_content is None:
