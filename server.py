@@ -77,10 +77,10 @@ def add_title_to_content(title: str, content: str) -> str:
 @mcp.tool
 def create_new_article(
     title: Annotated[str, "Title of the new article"],
-    content: Annotated[str, "Content of the new article"],
+    content: Annotated[str, "Content of the new article, should be in Markdown format"],
     category: Annotated[Optional[str], "Category of the new article, should be one of the following: web3, note, default is note"] = "note",
 ) -> str:
-    """Create a new article"""
+    """Create a new article with Markdown format"""
     
     if category not in ["web3", "note"]:
         return "Error: Category should be one of the following: web3, note"
